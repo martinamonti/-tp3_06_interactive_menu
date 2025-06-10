@@ -61,28 +61,53 @@ extern "C" {
  * 	------------------------+-----------------------+-----------------------+-----------------------+------------------------
  */
 
+#define CANT_MOTORES 2
+#define LEFT true
+#define RIGHT false
 /* Events to excite Task Menu */
 typedef enum task_menu_ev {EV_MEN_ENT_IDLE,
 						   EV_MEN_ENT_ACTIVE,
 						   EV_MEN_NEX_IDLE,
 						   EV_MEN_NEX_ACTIVE,
 						   EV_MEN_ESC_IDLE,
-						   EV_MEN_ESC_ACTIVE} task_menu_ev_t;
+						   EV_MEN_ESC_ACTIVE,
+						   EV_MEN_NEX,
+						   EV_MEN_ESC,
+						   EV_MEN_ENT} task_menu_ev_t;
 
 /* State of Task Menu */
 typedef enum task_menu_st {ST_MEN_XX_IDLE,
-						   ST_MEN_XX_ACTIVE} task_menu_st_t;
-
+						   ST_MEN_XX_ACTIVE,
+						   ST_MEN_XX_MAIN,
+						   ST_MEN_XX_MOTOR,
+						   ST_MEN_XX_POWER,
+						   ST_MEN_XX_POWER_MENU,
+						   ST_MEN_XX_SPEED,
+						   ST_MEN_XX_SPEED_MENU,
+						   ST_MEN_XX_SPIN,
+						   ST_MEN_XX_SPIN_MENU} task_menu_st_t;
+/*typedef enum task_menu_spin {LEFT = true,
+	RIGHT = false
+}task_menu_spin_t;
+*/
+typedef struct{
+	bool power;
+	uint32_t speed;
+	bool spin;
+}task_menu_prop_t;
 typedef struct
 {
 	uint32_t		tick;
 	task_menu_st_t	state;
 	task_menu_ev_t	event;
 	bool			flag;
+	uint32_t 		motor_num;
+	task_menu_prop_t motor_borrador;
 } task_menu_dta_t;
 
 /********************** external data declaration ****************************/
 extern task_menu_dta_t task_menu_dta;
+extern task_menu_prop_t task_motores_dta[CANT_MOTORES];
 
 /********************** external functions declaration ***********************/
 
